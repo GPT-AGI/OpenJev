@@ -289,18 +289,18 @@ def demo_race():
             (lx, "openjev  (one forward pass, parallel)", CYAN),
             (rx, "autoregressive LLM  (JSON, token by token)", MAGENTA),
         ]:
-            d.rounded_rectangle((x - 8, 120, x + col_w - 12, H - 60), radius=8, outline=BORDER)
+            d.rounded_rectangle((x - 8, 120, x + col_w - 12, H - 40), radius=8, outline=BORDER)
             text(d, (x, 126), title, FB, col)
 
         n_left = min(len(QUESTIONS), 0 if f < 2 else int((f - 1) * 6))
         y = 158
         for i in range(len(QUESTIONS)):
             if i < n_left:
-                text(d, (lx, y), f"{QUESTIONS[i]:<32}", FS, DIM)
-                text(d, (lx + 300, y), ANS_LEFT[i][:34], FS, FG)
-            y += 18
+                text(d, (lx, y), QUESTIONS[i][:30], FS, DIM)
+                text(d, (lx + 290, y), ANS_LEFT[i].replace('"confidence"', '"conf"')[:30], FS, FG)
+            y += 17
         if n_left >= len(QUESTIONS):
-            text(d, (lx, H - 100), "✓ completed in 0.114 s   ·   cost $0.00006", FB, GREEN)
+            text(d, (lx, H - 72), "✓ completed in 0.114 s   ·   cost $0.00006", FB, GREEN)
 
         if f < right_start:
             text(d, (rx, 158), "⠋⠙⠹⠸⠼⠴⠦⠧"[f % 8] + " waiting for first token…", FS, DIM)
@@ -308,14 +308,14 @@ def demo_race():
         y = 158
         for i in range(len(QUESTIONS)):
             if i < n_right:
-                text(d, (rx, y), f"{QUESTIONS[right_order[i]]:<32}", FS, DIM)
+                text(d, (rx, y), QUESTIONS[right_order[i]][:30], FS, DIM)
                 partial = ANS_RIGHT[right_order[i]]
                 if i == n_right - 1 and (f - right_start) % 3 != 2:
                     partial = partial[: max(1, len(partial) * ((f - right_start) % 3 + 1) // 3)] + "▍"
-                text(d, (rx + 300, y), partial, FS, FG)
-            y += 18
+                text(d, (rx + 290, y), partial, FS, FG)
+            y += 17
         if n_right >= len(QUESTIONS):
-            text(d, (rx, H - 100), "✓ completed in 4.9 s   ·   cost $0.0180", FB, YELLOW)
+            text(d, (rx, H - 72), "✓ completed in 4.9 s   ·   cost $0.0180", FB, YELLOW)
 
         frames.append(im)
         durs.append(50)
