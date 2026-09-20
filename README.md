@@ -11,7 +11,8 @@ Typed decisions (`Choice` · `Score` · `Noul`) from open models in one forward 
 [![Python 3.10+](https://img.shields.io/badge/python-3.10%2B-blue.svg)](pyproject.toml)
 [![Status: Phase 0](https://img.shields.io/badge/status-phase%200%20%C2%B7%20alpha-orange.svg)](#roadmap)
 
-<img src="docs/assets/demo-repl.gif" alt="OpenJev REPL demo" width="900">
+<img src="docs/assets/tui-maze-concept.gif" alt="OpenJev TUI: Jev plays a maze, live decisions, streaming JSON and telemetry" width="960">
+<br><sub><code>openjev play maze</code> · left: live state · right: streaming <code>/v1/systemone</code> response, option probabilities, rolling confidence & latency. Replays <b>real</b> Jev decisions (14 moves, shortest path, 0 tokens generated).</sub>
 
 </div>
 
@@ -30,12 +31,12 @@ Jev showed that a **System One model** can answer typed questions in ~100 ms wit
 <br><sub>Same 27 questions, same state, started together. One forward pass per question vs. autoregressive JSON. (Illustrative animation; measured numbers below.)</sub>
 </div>
 
-## What the OpenJev terminal will look like
+## What you can run today
 
-Concept of the `openjev play` TUI, replaying the **real** Jev decisions from the maze experiment below (no mock data). Left: the live state. Right: the streaming `/v1/systemone` response, per-option probability bars, and rolling confidence / latency telemetry. This is the Phase 1-2 target UI; the REPL you can run today renders the same probability bars without the split layout.
+The concept above is the Phase 1-2 target UI. The REPL that ships now already renders the same probability bars, confidence and latency for every decision:
 
 <div align="center">
-<img src="docs/assets/tui-maze-concept.gif" alt="OpenJev TUI concept: Jev plays a maze" width="960">
+<img src="docs/assets/demo-repl.gif" alt="OpenJev REPL demo" width="900">
 </div>
 
 ## Live experiments against the real Jev
