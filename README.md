@@ -30,6 +30,14 @@ Jev showed that a **System One model** can answer typed questions in ~100 ms wit
 <br><sub>Same 27 questions, same state, started together. One forward pass per question vs. autoregressive JSON. (Illustrative animation; measured numbers below.)</sub>
 </div>
 
+## What the OpenJev terminal will look like
+
+Concept of the `openjev play` TUI, replaying the **real** Jev decisions from the maze experiment below (no mock data). Left: the live state. Right: the streaming `/v1/systemone` response, per-option probability bars, and rolling confidence / latency telemetry. This is the Phase 1-2 target UI; the REPL you can run today renders the same probability bars without the split layout.
+
+<div align="center">
+<img src="docs/assets/tui-maze-concept.gif" alt="OpenJev TUI concept: Jev plays a maze" width="960">
+</div>
+
 ## Live experiments against the real Jev
 
 OpenJev ships a reference harness that runs real experiments against the official API, so every claim in this README can be re-measured with one command. Full write-up in [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md).
