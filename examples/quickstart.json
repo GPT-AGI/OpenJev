@@ -1,0 +1,33 @@
+{
+  "state": {
+    "ticket_id": "A-104",
+    "message": "Our Stripe integration has been failing for 3 days. Payments are completely down and we are losing revenue every hour. We need this fixed today.",
+    "plan": "enterprise",
+    "prior_tickets": 2
+  },
+  "questions": {
+    "dept": {
+      "type": "choice",
+      "instructions": "Which department should own this ticket?",
+      "criteria": {
+        "billing": "Invoices, refunds, charges, pricing questions",
+        "technical": "Bugs, outages, integration failures, API errors",
+        "sales": "Upgrades, new features, contract questions"
+      }
+    },
+    "urgent": {
+      "type": "noul",
+      "instructions": "Does this ticket require immediate escalation?"
+    },
+    "frustration": {
+      "type": "score",
+      "instructions": "How frustrated is the customer?",
+      "legend": { "0": "calm", "1": "annoyed but polite", "2": "furious" }
+    },
+    "deadline": {
+      "type": "choice",
+      "instructions": "Which response deadline is implied?",
+      "options": ["today", "this_week", "no_deadline"]
+    }
+  }
+}

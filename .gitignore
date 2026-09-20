@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+.pytest_cache/
+.ruff_cache/
+
+# Models / data
+models/
+data/
+*.safetensors
+*.gguf
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+
+# Local config
+.env
+~/.openjev/
