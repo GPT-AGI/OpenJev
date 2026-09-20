@@ -27,8 +27,41 @@ Jev showed that a **System One model** can answer typed questions in ~100 ms wit
 
 <div align="center">
 <img src="docs/assets/demo-race.gif" alt="27 questions, one pass vs autoregressive JSON" width="900">
-<br><sub>Same 27 questions, same state, started together. One forward pass per question vs. autoregressive JSON.</sub>
+<br><sub>Same 27 questions, same state, started together. One forward pass per question vs. autoregressive JSON. (Illustrative animation; measured numbers below.)</sub>
 </div>
+
+## Live experiments against the real Jev
+
+OpenJev ships a reference harness that runs real experiments against the official API, so every claim in this README can be re-measured with one command. Full write-up in [docs/EXPERIMENTS.md](docs/EXPERIMENTS.md).
+
+<table>
+<tr>
+<td width="50%">
+<img src="docs/assets/experiments/pelican.png" alt="pelican test">
+<br><sub><b>The pelican test.</b> Morph a pelican into a bicycle one sentence at a time. P(bird) and P(vehicle) cross exactly where Jev says the subject is <code>both</code>; absurdity peaks while the pelican is riding.</sub>
+</td>
+<td width="50%">
+<img src="docs/assets/experiments/surface-rotate.gif" alt="3D decision surface">
+<br><sub><b>Decision landscape.</b> 64 tickets on a days-down × revenue-lost grid, one call each. P(urgent) rises monotonically from 0.11 to 0.85; priority flips P3 → P1 with a cliff around day 3-5.</sub>
+</td>
+</tr>
+<tr>
+<td>
+<img src="docs/assets/experiments/latency.png" alt="latency vs questions">
+<br><sub><b>Adding questions is nearly free.</b> Measured live: 290 ms for 1 question, 328 ms for 27 (output tokens 23 → 594). Dashed line is a modelled autoregressive baseline.</sub>
+</td>
+<td>
+<img src="docs/assets/experiments/maze.gif" alt="Jev plays a maze">
+<br><sub><b>Jev plays a maze.</b> One <code>Choice</code> per step, ASCII map as state. Shortest path (14 moves) in 5.4 s. Confidence drops to 0.6 exactly at the corners and sits at 0.99 in corridors.</sub>
+</td>
+</tr>
+</table>
+
+```bash
+echo 'TYPESAFE_API_KEY=...' > .env
+uv pip install -e ".[experiments]"
+python scripts/experiments.py all      # pelican · surface · latency · maze, ~130 calls
+```
 
 ## What you get
 
