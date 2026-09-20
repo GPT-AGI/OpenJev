@@ -36,6 +36,10 @@ def test_score_validation():
         Score(instructions="x", legend={"0": "only"})
     s = Score(instructions="x", legend={"2": "high", "0": "none", "1": "low"})
     assert s.levels() == [0, 1, 2]
+    # official request form: ordered list of level descriptions
+    s2 = Score(instructions="x", criteria=["calm", "annoyed", "furious"])
+    assert s2.legend == {"0": "calm", "1": "annoyed", "2": "furious"}
+    assert s2.levels() == [0, 1, 2]
 
 
 def test_mock_backend_end_to_end():

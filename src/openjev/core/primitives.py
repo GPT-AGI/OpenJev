@@ -42,16 +42,25 @@ class Choice(BaseModel):
 
 
 class Score(BaseModel):
-    """Grade the state on an ordered legend (2..10 levels). Returns a probability-weighted score."""
+    """Grade the state on an ordered scale (2..10 levels). Returns a probability-weighted score.
+
+    Accepts either the official request form ``criteria=["level 0 desc", "level 1 desc", ...]``
+    or the response-style ``legend={"0": "...", "1": "..."}``. ``legend`` is always populated.
+    """
 
     type: Literal["score"] = "score"
     instructions: str
-    legend: dict[str, str]  # {"0": "none", "1": "low", "2": "high"}
+    criteria: list[str] | None = None
+    legend: dict[str, str] | None = None
 
     @model_validator(mode="after")
-    def _check_legend(self) -> Score:
+    def _normalise(self) -> "Score":
+        if self.legend is None and self.criteria is not None:
+            self.legend = {str(i): desc for i, desc in enumerate(self.criteria)}
+        if self.legend is None:
+            raise ValueError("Score needs `criteria` (list) or `legend` (dict).")
         if not (2 <= len(self.legend) <= 10):
-            raise ValueError("Score legend needs between 2 and 10 levels.")
+            raise ValueError("Score needs between 2 and 10 levels.")
         for k in self.legend:
             int(k)  # raises if not numeric
         return self
